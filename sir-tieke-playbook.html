@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sir Tieke's Constitutional Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a1a;--card:#13132a;--gold:#ffd700;--cyan:#00d4ff;--green:#2ed573;--red:#ff4757;--ep1:#ff6b35;--ep2:#4361ee;--ep3:#06a77d;--ep4:#a855f7}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:#fff;font-family:'Nunito',sans-serif;height:100%;display:flex;flex-direction:column}
+.screen{display:none;flex-direction:column;height:100%;overflow:hidden}
+.screen.active{display:flex}
+
+/* ── WELCOME ── */
+#s-welcome{background:radial-gradient(ellipse at 50% 15%,#1e0a3c 0%,#0a0a1a 65%);align-items:center;justify-content:center;text-align:center;padding:32px 24px;position:relative;overflow:hidden}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d,3s) var(--delay,0s) infinite}
+@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.9}}
+.shield{font-size:80px;animation:float 3s ease-in-out infinite;display:block;margin-bottom:12px;filter:drop-shadow(0 0 24px rgba(255,215,0,.6))}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.w-eyebrow{font-family:'Bangers',cursive;font-size:13px;letter-spacing:4px;color:#5050a0;margin-bottom:6px}
+.w-series{font-family:'Bangers',cursive;font-size:36px;letter-spacing:2px;color:var(--gold);text-shadow:0 0 30px rgba(255,215,0,.5),3px 3px 0 rgba(0,0,0,.4);line-height:1;margin-bottom:18px}
+.w-for{font-size:13px;color:#5050a0;letter-spacing:2px;font-weight:800;text-transform:uppercase;margin-bottom:6px}
+.w-name{font-family:'Bangers',cursive;font-size:30px;letter-spacing:2px;color:var(--cyan);text-shadow:0 0 20px rgba(0,212,255,.5);margin-bottom:4px}
+.w-rank{font-size:11px;color:#404080;letter-spacing:4px;font-weight:800;text-transform:uppercase;margin-bottom:36px}
+.w-btn{background:linear-gradient(135deg,var(--gold),#ff9500);border:none;border-radius:50px;padding:17px 52px;font-family:'Bangers',cursive;font-size:24px;letter-spacing:2px;color:#0a0a1a;cursor:pointer;box-shadow:0 8px 32px rgba(255,215,0,.45),0 0 0 3px rgba(255,215,0,.15);animation:pulsebtn 2s ease infinite;transition:transform .1s}
+.w-btn:active{transform:scale(.96)}
+@keyframes pulsebtn{0%,100%{box-shadow:0 8px 32px rgba(255,215,0,.45),0 0 0 3px rgba(255,215,0,.15)}50%{box-shadow:0 8px 44px rgba(255,215,0,.7),0 0 0 9px rgba(255,215,0,.07)}}
+
+/* ── HUB ── */
+#s-hub{background:var(--bg);overflow-y:auto}
+.hub-head{background:linear-gradient(180deg,#16163a 0%,var(--bg) 100%);padding:52px 20px 20px;border-bottom:1px solid rgba(255,215,0,.08)}
+.hub-greeting{font-family:'Bangers',cursive;font-size:15px;letter-spacing:3px;color:var(--gold);margin-bottom:2px}
+.hub-name{font-family:'Bangers',cursive;font-size:26px;letter-spacing:1px;margin-bottom:14px}
+.xp-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.xp-track{flex:1;height:14px;background:#0a0a14;border-radius:20px;overflow:hidden;border:1px solid rgba(255,215,0,.15)}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--gold),#ff9500);border-radius:20px;transition:width .8s ease;min-width:4px;position:relative;overflow:hidden}
+.xp-fill::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:shim 2s infinite}
+@keyframes shim{to{left:200%}}
+.xp-num{font-family:'Bangers',cursive;font-size:16px;color:var(--gold);min-width:56px;text-align:right}
+.xp-label{font-size:11px;color:#404070;font-weight:800;letter-spacing:1px}
+.ep-list{padding:16px}
+.ep-card{background:var(--card);border-radius:20px;padding:18px 16px;border:2px solid rgba(255,255,255,.06);cursor:pointer;transition:transform .15s,box-shadow .15s;display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.ep-card:active{transform:scale(.97)}
+.ep-card.done{border-color:rgba(46,213,115,.25)}
+.ep-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.ep-meta{flex:1}
+.ep-num{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;opacity:.6;margin-bottom:2px}
+.ep-title{font-family:'Bangers',cursive;font-size:20px;letter-spacing:1px;line-height:1.1;margin-bottom:2px}
+.ep-sub{font-size:11px;color:#6060a0;font-weight:700}
+.ep-badge{font-size:20px}
+.ep-score{font-size:11px;font-weight:800;color:var(--green);margin-top:3px}
+
+/* ── EPISODE ── */
+#s-ep{background:var(--bg)}
+.ep-topbar{background:var(--card);padding:50px 14px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.05)}
+.back-btn{background:rgba(255,255,255,.07);border:none;border-radius:10px;width:38px;height:38px;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ep-topbar-title{font-family:'Bangers',cursive;font-size:18px;letter-spacing:1px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-count{font-size:12px;font-weight:800;color:#404070;flex-shrink:0}
+.pip-row{display:flex;gap:3px;padding:8px 14px 0;flex-shrink:0}
+.pip{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.08);transition:background .3s}
+.pip.lit{background:var(--gold)}
+.card-scroll{flex:1;overflow-y:auto;padding:20px 16px 24px}
+.card-anim{animation:cin .3s ease}
+@keyframes cin{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:translateX(0)}}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.card-h{font-family:'Bangers',cursive;font-size:26px;letter-spacing:1px;line-height:1.15;margin-bottom:12px}
+.card-p{font-size:15px;line-height:1.8;color:#b0b0cc}
+.card-p strong{color:#fff}
+.bullets{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.bitem{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.04);border-radius:12px;padding:12px}
+.bdot{width:7px;height:7px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.btext{font-size:13px;line-height:1.65;color:#a0a0c0}
+.btext strong{color:#e0e0ff;display:block;margin-bottom:2px;font-size:14px}
+.qblock{border-radius:0 12px 12px 0;padding:14px 16px;margin-top:14px;font-style:italic;color:#ddd8b0;font-size:14px;line-height:1.75;border-left:4px solid var(--gold);background:rgba(255,215,0,.06)}
+.qsrc{margin-top:6px;font-size:11px;font-style:normal;font-weight:800;color:var(--gold);letter-spacing:.5px}
+.callout{background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(168,85,247,.08));border:1px solid rgba(0,212,255,.18);border-radius:14px;padding:14px;margin-top:12px;font-size:13px;color:#90ccff;line-height:1.75;font-weight:700}
+.hbox{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-top:12px}
+.nav-row{padding-top:20px;display:flex;gap:10px;flex-shrink:0}
+.nxt-btn{flex:1;border:none;border-radius:14px;padding:15px;font-family:'Bangers',cursive;font-size:20px;letter-spacing:1px;cursor:pointer;transition:transform .1s;color:#0a0a1a}
+.nxt-btn:active{transform:scale(.97)}
+.nxt-btn.ghost{background:rgba(255,255,255,.07);color:#fff;flex:0 0 auto;padding:15px 20px}
+
+/* ── QUIZ ── */
+#s-quiz{background:var(--bg);overflow-y:auto}
+.quiz-head{background:var(--card);padding:50px 18px 18px;text-align:center;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.05)}
+.quiz-eye{font-family:'Bangers',cursive;font-size:13px;letter-spacing:3px;color:var(--gold);margin-bottom:4px}
+.quiz-ttl{font-family:'Bangers',cursive;font-size:26px;letter-spacing:1px}
+.q-dots{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.qdot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1);transition:background .3s}
+.qdot.on{background:var(--gold)}
+.qdot.done{background:var(--green)}
+.quiz-body{padding:22px 16px;flex:1}
+.q-text{font-size:18px;font-weight:900;line-height:1.45;color:#fff;margin-bottom:22px;text-align:center}
+.opts{display:flex;flex-direction:column;gap:11px}
+.opt{background:var(--card);border:2px solid rgba(255,255,255,.07);border-radius:13px;padding:15px 18px;color:#b0b0cc;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-align:left;transition:all .15s;width:100%}
+.opt:active:not(:disabled){transform:scale(.98)}
+.opt.correct{background:rgba(46,213,115,.14);border-color:var(--green);color:var(--green)}
+.opt.wrong{background:rgba(255,71,87,.14);border-color:var(--red);color:var(--red)}
+.feedback{margin-top:16px;padding:14px;border-radius:13px;font-size:13px;line-height:1.65;font-weight:700;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:rgba(46,213,115,.08);border:1px solid rgba(46,213,115,.25);color:#80ffb0}
+.feedback.no{background:rgba(255,71,87,.08);border:1px solid rgba(255,71,87,.25);color:#ffb0b0}
+.next-q{width:100%;margin-top:14px;background:linear-gradient(135deg,var(--gold),#ff9500);border:none;border-radius:13px;padding:15px;font-family:'Bangers',cursive;font-size:21px;letter-spacing:1px;color:#0a0a1a;cursor:pointer;display:none}
+.next-q.show{display:block}
+.xp-pop{position:fixed;top:42%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,var(--gold),#ff9500);color:#0a0a1a;font-family:'Bangers',cursive;font-size:34px;letter-spacing:2px;padding:10px 26px;border-radius:50px;z-index:999;animation:xpfly 1.3s forwards;pointer-events:none}
+@keyframes xpfly{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}70%{opacity:1;transform:translate(-50%,-90%) scale(1)}100%{opacity:0;transform:translate(-50%,-130%) scale(.8)}}
+
+/* ── COMPLETE ── */
+#s-complete{background:radial-gradient(ellipse at 50% 25%,#1e0a3c 0%,#0a0a1a 65%);align-items:center;justify-content:center;text-align:center;padding:40px 24px;overflow:hidden}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100}
+.comp-inner{position:relative;z-index:10}
+.comp-emo{font-size:68px;animation:float 3s ease-in-out infinite;display:block;margin-bottom:12px}
+.comp-title{font-family:'Bangers',cursive;font-size:36px;letter-spacing:2px;color:var(--gold);text-shadow:0 0 30px rgba(255,215,0,.5);margin-bottom:6px}
+.comp-name{font-family:'Bangers',cursive;font-size:26px;color:var(--cyan);text-shadow:0 0 20px rgba(0,212,255,.5);margin-bottom:16px}
+.comp-body{font-size:15px;color:#8080b0;line-height:1.8;margin-bottom:24px;max-width:320px}
+.comp-xp{font-family:'Bangers',cursive;font-size:56px;color:var(--gold);text-shadow:0 0 30px rgba(255,215,0,.6)}
+.comp-xplbl{font-size:11px;font-weight:800;letter-spacing:3px;color:#404070;text-transform:uppercase;margin-bottom:28px}
+.comp-restart{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.12);border-radius:50px;padding:13px 30px;font-family:'Bangers',cursive;font-size:18px;letter-spacing:1px;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- WELCOME -->
+<div id="s-welcome" class="screen active">
+  <div class="stars" id="starfield"></div>
+  <span class="shield">🛡️</span>
+  <div class="w-eyebrow">A FOUR-PART SERIES</div>
+  <div class="w-series">YOUR RIGHTS<br>DON'T STOP<br>AT THE DOOR</div>
+  <div class="w-for">CREATED FOR</div>
+  <div class="w-name">SIR TIEKE WOODROW JOHNSON</div>
+  <div class="w-rank">CONSTITUTIONAL SCHOLAR · CLASS OF 2027</div>
+  <button class="w-btn" onclick="go('s-hub')">BEGIN MISSION ⚡</button>
+</div>
+
+<!-- HUB -->
+<div id="s-hub" class="screen">
+  <div class="hub-head">
+    <div class="hub-greeting">WELCOME BACK,</div>
+    <div class="hub-name">Sir Tieke 👊</div>
+    <div class="xp-row">
+      <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+      <div class="xp-num" id="xp-num">0 XP</div>
+    </div>
+    <div class="xp-label">CONSTITUTIONAL MASTERY</div>
+  </div>
+  <div class="ep-list" id="ep-list"></div>
+</div>
+
+<!-- EPISODE -->
+<div id="s-ep" class="screen">
+  <div class="ep-topbar">
+    <button class="back-btn" onclick="go('s-hub')">←</button>
+    <div class="ep-topbar-title" id="ep-topbar-title">Episode</div>
+    <div class="card-count" id="card-count"></div>
+  </div>
+  <div class="pip-row" id="pip-row"></div>
+  <div class="card-scroll" id="card-scroll">
+    <div class="card-anim" id="card-content"></div>
+    <div class="nav-row" id="nav-row"></div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="s-quiz" class="screen">
+  <div class="quiz-head">
+    <div class="quiz-eye" id="quiz-eye">⚡ KNOWLEDGE CHECK</div>
+    <div class="quiz-ttl" id="quiz-ttl">Episode Quiz</div>
+    <div class="q-dots" id="q-dots"></div>
+  </div>
+  <div class="quiz-body">
+    <div class="q-text" id="q-text"></div>
+    <div class="opts" id="opts"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-q" id="next-q-btn" onclick="nextQuestion()">NEXT QUESTION →</button>
+  </div>
+</div>
+
+<!-- COMPLETE -->
+<div id="s-complete" class="screen">
+  <canvas id="confetti-canvas"></canvas>
+  <div class="comp-inner">
+    <span class="comp-emo">🏆</span>
+    <div class="comp-title">MISSION COMPLETE!</div>
+    <div class="comp-name">Sir Tieke Woodrow Johnson</div>
+    <div class="comp-body">You now understand your First Amendment rights better than most adults. Your voice, your faith, your freedom — fully protected. Never let any institution convince you otherwise.</div>
+    <div class="comp-xp" id="comp-xp">0 XP</div>
+    <div class="comp-xplbl">TOTAL MASTERY POINTS</div>
+    <button class="comp-restart" onclick="go('s-hub')">← BACK TO EPISODES</button>
+  </div>
+</div>
+
+<script>
+// ── STATE ──
+const S = {
+  xp: 0,
+  epIdx: 0,
+  cardIdx: 0,
+  qIdx: 0,
+  qScore: 0,
+  done: {},
+  scores: {}
+};
+
+// ── DATA ──
+const EP_COLORS = ['#ff6b35','#4361ee','#06a77d','#a855f7'];
+const EP_EMOJIS = ['🎙️','⚖️','✊','🏛️'];
+
+const EPISODES = [
+  {
+    title:'Your Voice Has Power',
+    sub:'What Free Speech Actually Means',
+    cards:[
+      {badge:'🎯 YOUR SITUATION', badgeColor:'#ff6b35',
+       h:'This Is About You, Tieke',
+       body:`You're 14. You're having a real conversation with another student about what you believe. No threats. No fighting. Just talking. And somehow the school wants to <strong>investigate you for it.</strong><br><br>By the time you finish this episode, you'll know exactly — word for word, law by law — why that's a problem.`},
+      {badge:'📜 THE LAW', badgeColor:'#ff6b35',
+       h:'Eight Words That Changed History',
+       body:`The First Amendment says:<br><br>`,
+       quote:`"Congress shall make no law abridging the freedom of speech."`,
+       quotesrc:'First Amendment, U.S. Constitution',
+       after:`That's it. But those words have protected people for over 230 years. And they protect <strong>you</strong> right now.`},
+      {badge:'🏫 AT SCHOOL', badgeColor:'#ff6b35',
+       h:'Who Does It Protect You FROM?',
+       bullets:[
+         {label:'The GOVERNMENT — including public schools',detail:'Your school is a government institution. The First Amendment draws a hard legal wall between what that institution can do to you — and your right to speak and believe freely.'},
+         {label:'NOT from other students personally',detail:'If a friend disagrees with you, they can walk away. That\'s not a First Amendment issue. The law only activates when a government institution tries to punish you for your speech.'},
+         {label:'Public schools are government institutions',detail:'Every principal, every administrator in a public school — they work for the government. That means the First Amendment applies to every decision they make about your speech.'}
+       ]},
+      {badge:'⚖️ THE CASE', badgeColor:'#ff6b35',
+       h:'Tinker v. Des Moines (1969)',
+       body:`In 1969, students wore black armbands to school to protest the Vietnam War. The school tried to suspend them. The case went all the way to the Supreme Court. The Court ruled:`,
+       quote:`"Students do not shed their constitutional rights to freedom of speech or expression at the schoolhouse gate."`,
+       quotesrc:'Justice Abe Fortas — Tinker v. Des Moines (1969)',
+       after:`That ruling is still the law today. <strong>Your rights travel with you to school.</strong>`},
+      {badge:'📏 THE STANDARD', badgeColor:'#ff6b35',
+       h:'When CAN a School Punish Speech?',
+       body:`There's only one main test from Tinker: the school must show the speech caused a <strong>substantial disruption</strong> — a real, serious interference with the school's ability to function.<br><br>Not discomfort. Not disagreement. Not "I don't like what he said." A real disruption.`,
+       callout:`🛡️ Sir Tieke's situation: A private two-student religious conversation that's been going back and forth since January — with no physical contact and no school disruption — is nowhere near that standard. That's a conversation. Protected speech.`},
+      {badge:'🔑 KEY TAKEAWAYS', badgeColor:'#ff6b35',
+       h:'Episode 1 Locked In',
+       bullets:[
+         {label:'First Amendment protects you FROM the government',detail:'Public schools count as government. Your rights apply there.'},
+         {label:'Tinker said it in 1969 — still law today',detail:'Students do not shed their rights at the schoolhouse gate.'},
+         {label:'Substantial disruption is the test',detail:'Your private religious conversation doesn\'t come close to meeting it.'},
+         {label:'Private religious speech is protected',detail:'The law doesn\'t make exceptions just because the topic is religion.'}
+       ]}
+    ],
+    quiz:[
+      {q:'What famous 1969 Supreme Court case says students keep their rights at school?',
+       opts:['Tinker v. Des Moines','Morse v. Frederick','Davis v. Monroe County','Hazelwood v. Kuhlmeier'],
+       ans:0,
+       exp:'Tinker v. Des Moines (1969) is the landmark ruling. Justice Fortas wrote that students do not shed their constitutional rights at the schoolhouse gate. It is still binding law today.'},
+      {q:'For a school to legally punish student speech, what must that speech cause?',
+       opts:['Substantial disruption','Any disagreement','One complaint','Teacher discomfort'],
+       ans:0,
+       exp:'The Tinker standard requires substantial disruption — a real, serious interference with the school\'s ability to function. Discomfort and disagreement don\'t qualify.'},
+      {q:'The First Amendment protects you from whom?',
+       opts:['The government (including public schools)','Other students','Your parents','Private businesses'],
+       ans:0,
+       exp:'The First Amendment is a limit on GOVERNMENT power. Public schools are government institutions, so they must respect your constitutional rights.'}
+    ]
+  },
+  {
+    title:'No Official Religion',
+    sub:'The Establishment Clause Explained',
+    cards:[
+      {badge:'💭 IMAGINE THIS', badgeColor:'#4361ee',
+       h:'What If the Government Picked a Religion?',
+       body:`Imagine the U.S. government announced: <strong>"The official religion of America is Christianity."</strong> Or Islam. Or Buddhism. Whatever it was — everyone who wasn't that religion would instantly become a second-class citizen in their own country.<br><br>The Founders had seen this happen in Europe. They watched it tear societies apart. So they drew a hard constitutional line. It's called the <strong>Establishment Clause.</strong>`},
+      {badge:'📜 THE CLAUSE', badgeColor:'#4361ee',
+       h:'What the Establishment Clause Says',
+       body:`The First Amendment opens with: <em>"Congress shall make no law respecting an establishment of religion."</em><br><br>Translation — the government CANNOT:`,
+       bullets:[
+         {label:'Create an official religion',detail:'No national church, no official faith, no state-sponsored doctrine.'},
+         {label:'Force you to participate in religious activity',detail:'Schools cannot lead prayers, require religious rituals, or mandate religious observation.'},
+         {label:'Advance one religion over others',detail:'A public school cannot teach that Christianity is correct and Islam is wrong, or vice versa.'}
+       ]},
+      {badge:'🏫 AT SCHOOL', badgeColor:'#4361ee',
+       h:'What This Means for Your School',
+       body:`Your school must stay <strong>religiously neutral.</strong> That one word — neutral — is everything.<br><br>`,
+       bullets:[
+         {label:'Schools CAN teach about religion',detail:'History class can cover the Crusades, the spread of Islam, Buddhism in ancient Asia. That\'s education, not endorsement.'},
+         {label:'Schools CANNOT endorse any religion as true',detail:'A teacher cannot tell the class one religion is correct. That would be the government picking sides.'},
+         {label:'Students CAN still practice and express faith',detail:'The Establishment Clause limits what SCHOOL OFFICIALS can do. It does not limit what YOU as a student can say and believe.'}
+       ]},
+      {badge:'⚖️ THE REFEREE', badgeColor:'#4361ee',
+       h:'Think of It Like This, Tieke',
+       body:`Imagine a basketball game where the referee keeps calling fouls on one team but never on the other. That's not officiating — it's cheating.<br><br>The Establishment Clause makes the government the referee in matters of religion. A <strong>neutral</strong> referee. It cannot favor your religion, and it cannot punish it.<br><br>The moment a school treats one student's religious expression as protected while treating another's as a threat — <strong>without any difference in actual conduct</strong> — the referee is cheating.`,
+       callout:`🛡️ This matters for Sir Tieke: If the school treats your Christian expression as a harassment threat but doesn't examine the Muslim student's statements by the same standard, that asymmetry IS a constitutional problem under the Establishment Clause.`},
+      {badge:'📜 THE CASE', badgeColor:'#4361ee',
+       h:'What the Court Has Said',
+       quote:`"The government must remain neutral between religions, and between religion and non-religion."`,
+       quotesrc:'Everson v. Board of Education (1947)',
+       after:`Neutral means BOTH directions. The government cannot promote your faith AND it cannot punish it. A school that ignores one student's religious statements while investigating another's has abandoned neutrality.`},
+      {badge:'🔑 KEY TAKEAWAYS', badgeColor:'#4361ee',
+       h:'Episode 2 Locked In',
+       bullets:[
+         {label:'Establishment Clause = government cannot pick a religion',detail:'No official faith, no forced participation, no favoritism.'},
+         {label:'Public schools must stay religiously neutral',detail:'They cannot endorse any religion — and cannot punish one over another.'},
+         {label:'Neutral means BOTH directions',detail:'Cannot promote your faith. Cannot punish it either.'},
+         {label:'Asymmetric enforcement is itself a constitutional violation',detail:'One standard for one religion, different standard for another — that\'s the school failing its own constitutional duty.'}
+       ]}
+    ],
+    quiz:[
+      {q:'What does the Establishment Clause prevent the government from doing?',
+       opts:['Creating an official religion or favoring one religion over others','Students from praying at school','Religious conversations between students','All mention of religion in schools'],
+       ans:0,
+       exp:'The Establishment Clause prevents the government — including public schools — from establishing an official religion or showing favoritism between religions. Students retain their own right to express faith.'},
+      {q:'What key word describes how public schools must treat all religions?',
+       opts:['Neutral','Favorable','Silent','Cautious'],
+       ans:0,
+       exp:'Neutral is the constitutional requirement. Schools cannot promote any religion, but they also cannot discriminate against any religion. Both directions — and it applies to how they enforce rules about student speech too.'},
+      {q:'Can a public school teacher lead the class in a group prayer?',
+       opts:['No — this violates the Establishment Clause','Yes, if it\'s brief','Yes if all students agree','Yes on holidays only'],
+       ans:0,
+       exp:'No. A teacher leading a class prayer is a government official promoting religious activity. The Supreme Court ruled this unconstitutional in Engel v. Vitale (1962). Students can pray privately; school officials cannot lead it.'}
+    ]
+  },
+  {
+    title:'Believe What You Believe',
+    sub:'The Free Exercise Clause & Your Faith',
+    cards:[
+      {badge:'💥 THE QUOTE', badgeColor:'#06a77d',
+       h:'What the Supreme Court Actually Said',
+       quote:`"Private religious speech, far from being a First Amendment orphan, is as fully protected under the Free Speech Clause as secular private expression."`,
+       quotesrc:'U.S. Supreme Court',
+       after:`That's not a slogan. That's a legal ruling. Your faith — and your right to express it — is not a second-class right. It is <strong>fully protected.</strong> Equal to any other speech in America.`},
+      {badge:'📜 THE CLAUSE', badgeColor:'#06a77d',
+       h:'What Free Exercise Protects',
+       body:`Right after the Establishment Clause, the First Amendment says: <em>"...or prohibiting the free exercise thereof."</em><br><br>The "thereof" means religion. So the full picture is:`,
+       bullets:[
+         {label:'Establishment Clause → government CANNOT establish a religion',detail:'Covered last episode. Government stays out of picking faiths.'},
+         {label:'Free Exercise Clause → government CANNOT stop you from practicing yours',detail:'These two clauses work as a pair. One stops the government from pushing religion onto you. The other stops it from pulling religion away from you.'},
+         {label:'Both apply to your school RIGHT NOW',detail:'Public school = government. Both clauses = active protections for you.'}
+       ]},
+      {badge:'📍 WASHINGTON STATE', badgeColor:'#06a77d',
+       h:'Your State\'s Own Education Authority Says This',
+       body:`Washington State's Office of Superintendent of Public Instruction — the top education authority in this state — explicitly states:`,
+       quote:`Students may pray or discuss religion with other students during the school day in the same way that students can engage in other conversations, as long as it is not disruptive and does not infringe on the rights of other students.`,
+       quotesrc:'Washington OSPI — Religion in Schools Guidance',
+       after:`That's your school district's own state authority. <strong>Your conversation was exactly what OSPI said you could have.</strong>`},
+      {badge:'🛡️ YOUR CASE', badgeColor:'#06a77d',
+       h:'Let\'s Apply This to You, Tieke',
+       body:`Your situation, analyzed against every legal layer:`,
+       bullets:[
+         {label:'Free Exercise Clause',detail:'You have the right to hold AND express your Christian faith. Protected.'},
+         {label:'Tinker v. Des Moines',detail:'Your speech is protected unless it caused substantial disruption. A private back-and-forth didn\'t.'},
+         {label:'Washington OSPI Guidance',detail:'Students can discuss religion with each other during the school day. Explicitly permitted.'},
+         {label:'U.S. Department of Education',detail:'Private religious speech is as protected as any other speech in America.'}
+       ],
+       callout:`Every single legal layer — federal Constitution, Supreme Court, state education authority — says the same thing: your conversation was protected.`},
+      {badge:'⚠️ IMPORTANT NUANCE', badgeColor:'#06a77d',
+       h:'Rights Have Edges — This Is Important',
+       body:`Free Exercise isn't unlimited. Nothing in constitutional law is. Here's the real standard.<br><br>Under <strong>Davis v. Monroe County</strong>, for religious expression to become actionable harassment, the conduct must be all three of these:`,
+       bullets:[
+         {label:'Severe',detail:'Not just disagreeable. Actually threatening or deeply demeaning.'},
+         {label:'Pervasive AND persistent',detail:'Not occasional. Constant, relentless, targeted.'},
+         {label:'Objectively offensive — AND it must deny educational access',detail:'Not just upsetting to one person. A reasonable person standard. And it must actually stop the other student from participating in their education.'}
+       ],
+       after:`A mutual back-and-forth theological debate since January — where BOTH students have been talking — is nowhere near that bar.`},
+      {badge:'🔑 KEY TAKEAWAYS', badgeColor:'#06a77d',
+       h:'Episode 3 Locked In',
+       bullets:[
+         {label:'Free Exercise = your right to believe AND express your faith',detail:'The government cannot take this from you.'},
+         {label:'Washington OSPI explicitly permits religious discussion between students',detail:'Your state\'s own authority says it\'s fine.'},
+         {label:'Religious disagreement between students is protected expression',detail:'Not harassment. Two people having different beliefs and saying so.'},
+         {label:'Davis harassment standard is very high',detail:'Severe + pervasive + objectively offensive + denies educational access. None of those are present here.'}
+       ]}
+    ],
+    quiz:[
+      {q:'What does the Free Exercise Clause protect you from?',
+       opts:['Government preventing you from practicing your religion','School-sponsored prayer','Other students\' speech','Teachers\' personal beliefs'],
+       ans:0,
+       exp:'The Free Exercise Clause stops the government — including public schools — from prohibiting you from practicing your religion. It pairs with the Establishment Clause to give you complete First Amendment religious protection.'},
+      {q:'Under Davis v. Monroe County, for conduct to be harassment it must be...',
+       opts:['Severe, pervasive, and objectively offensive','Offensive to one person','About religion','Happening at school'],
+       ans:0,
+       exp:'Davis v. Monroe County sets a high bar: the conduct must be severe, pervasive, AND objectively offensive — and must actually deny the student equal access to their education. A mutual theological debate doesn\'t come close.'},
+      {q:'Washington OSPI says students CAN do which of the following?',
+       opts:['Discuss religion with other students during the school day','Only pray silently','Never mention religion at school','Discuss religion only after school hours'],
+       ans:0,
+       exp:'Washington\'s Office of Superintendent of Public Instruction explicitly states students may discuss religion with other students during the school day, on the same terms as any other conversation, as long as it\'s not disruptive.'}
+    ]
+  },
+  {
+    title:'The Empowered Citizen',
+    sub:'Knowing Your Rights & Using Them With Integrity',
+    cards:[
+      {badge:'💡 BIG PICTURE', badgeColor:'#a855f7',
+       h:'What Most People Never Figure Out',
+       body:`Most people go their <strong>entire lives</strong> without understanding what the Constitution actually says — or how it protects them.<br><br>They give up rights they didn't know they had. They stay quiet when they didn't have to. They let institutions push them around because nobody ever explained there's a legal wall between what the government can do and who you are as a person.<br><br><strong>You, at 14, are about to know more than most adults.</strong>`},
+      {badge:'🗂️ THE FULL PICTURE', badgeColor:'#a855f7',
+       h:'All Four Pillars — Right Here',
+       bullets:[
+         {label:'FREE SPEECH — Tinker v. Des Moines',detail:'A public school cannot punish you for sincere expression without substantial disruption. Your private religious conversation didn\'t cause any.'},
+         {label:'ESTABLISHMENT CLAUSE — Everson v. Board of Ed.',detail:'Your school must stay religiously neutral. Asymmetric enforcement of HIB rules based on religion is itself unconstitutional.'},
+         {label:'FREE EXERCISE — Washington OSPI + U.S. Supreme Court',detail:'Private religious speech is fully protected. Washington state explicitly permits student religious discussion during the school day.'},
+         {label:'SELECTIVE ENFORCEMENT — Equal Protection',detail:'The school found what was done TO you (racial slur + spitting) was HIB. Now they\'re investigating you for a conversation. Two completely different standards. That inconsistency is legally significant.'}
+       ]},
+      {badge:'⚖️ WHAT YOUR DAD DID', badgeColor:'#a855f7',
+       h:'This Is What Lawyers Actually Do',
+       body:`Your dad didn't just argue with the school. He did something more sophisticated:`,
+       bullets:[
+         {label:'Identified the specific statute — RCW 28A.300.285',detail:'The Washington law that defines HIB. He applied your facts to each element and found that none of them are met.'},
+         {label:'Identified the constitutional cases',detail:'Tinker, Morse, Bethel, Hazelwood, Davis — the exact cases that set the legal limits on what schools can and cannot do.'},
+         {label:'Spotted the selective enforcement pattern',detail:'The school applied one standard to protect you as a victim. They\'re applying a weaker standard to investigate you as an alleged actor. That inconsistency matters.'}
+       ],
+       callout:`⚡ That process — identify the law, apply the facts, spot the inconsistency — is exactly what attorneys do. It works because institutions that overreach often don't expect anyone to actually know the rules.`},
+      {badge:'🎯 RESPONSIBILITY', badgeColor:'#a855f7',
+       h:'The Part That Makes You Mature',
+       body:`Here's something important — not just legally, but as a person.<br><br>The Constitution protects your right to express your faith. It does not give you the right to use your faith to make someone feel like less of a person. Those are <strong>different things.</strong><br><br>You can believe your religion is true. You can say so. You can disagree. But there's a difference between sincere expression and contempt.<br><br><strong>The mature version of having rights is knowing you don't need to weaponize them to feel secure in what you believe.</strong>`},
+      {badge:'💬 THE DISTINCTION', badgeColor:'#a855f7',
+       h:'Rights vs. Being Right',
+       body:`Here's something most adults never figure out:<br><br>You can be completely <strong>within your legal rights</strong> and still be wrong in how you treat someone.<br><br>The person who gets this — who carries both legal knowledge AND genuine respect for the humanity of the person they're disagreeing with — is rare. And more powerful than either one alone.`,
+       quote:`"If there is any fixed star in our constitutional constellation, it is that no official, high or petty, can prescribe what shall be orthodox in politics, nationalism, religion, or other matters of opinion."`,
+       quotesrc:'Justice Robert Jackson — West Virginia v. Barnette (1943)'},
+      {badge:'🏆 THE CLOSE', badgeColor:'#a855f7',
+       h:'Sir Tieke Woodrow Johnson — Constitutional Scholar',
+       body:`You're 14, entering ninth grade, and you now understand constitutional law better than most adults in any room you'll walk into.<br><br>Your dad went deep into these cases and statutes because he believes you deserve to understand the world you actually live in — not a simplified version of it.<br><br>The First Amendment isn't just your legal protection.<br><strong>It's your inheritance as an American.</strong><br><br>Study it. Know it. Use it wisely. And never let any institution — any school, any official, any system — convince you that your sincere beliefs make you a problem to be managed.`,
+       callout:`🛡️ You are Sir Tieke Woodrow Johnson. You know your rights. You know the cases. You know the statute. And you know how to use that knowledge with integrity. That combination is unstoppable.`}
+    ],
+    quiz:[
+      {q:'Which Washington state law defines what qualifies as Harassment, Intimidation, and Bullying (HIB)?',
+       opts:['RCW 28A.300.285','The First Amendment','Davis v. Monroe County','Tinker v. Des Moines'],
+       ans:0,
+       exp:'RCW 28A.300.285 is the Washington state statute that defines HIB. It requires physical harm, substantial disruption of education, or conduct so severe, persistent, and pervasive that it creates a threatening environment — or substantially disrupts school operations.'},
+      {q:'When a school applies a STRICT standard to protect one student from bullying, but a WEAKER standard to investigate another for a conversation — what is that called?',
+       opts:['Selective enforcement / disparate treatment','Equal protection','Viewpoint discrimination','Substantial disruption'],
+       ans:0,
+       exp:'Selective enforcement or disparate treatment — applying different standards to different students or situations without legitimate basis — is legally significant. It can raise Equal Protection claims under the 14th Amendment and viewpoint discrimination claims under the First Amendment.'},
+      {q:'Under the Constitution, having rights AND choosing to use them with integrity is best described as...',
+       opts:['Character — the mark of true strength','Weakness','Unnecessary caution','Legal compliance only'],
+       ans:0,
+       exp:'Legal knowledge tells you what you\'re allowed to do. Character tells you how you should do it. The most powerful combination is someone who knows their rights completely AND chooses to exercise them with genuine respect for other people\'s humanity.'}
+    ]
+  }
+];
+
+// ── STARS ──
+function makeStars(){
+  const f=document.getElementById('starfield');
+  for(let i=0;i<60;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=Math.random()*2.5+0.5;
+    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*3+2).toFixed(1)}s;--delay:${(Math.random()*4).toFixed(1)}s`;
+    f.appendChild(s);
+  }
+}
+makeStars();
+
+// ── NAVIGATION ──
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='s-hub') renderHub();
+  if(id==='s-complete') launchConfetti();
+}
+
+// ── HUB ──
+function renderHub(){
+  const maxXP=EPISODES.length*3*20;
+  const pct=Math.min(100,(S.xp/maxXP)*100);
+  document.getElementById('xp-fill').style.width=pct+'%';
+  document.getElementById('xp-num').textContent=S.xp+' XP';
+  const list=document.getElementById('ep-list');
+  list.innerHTML='';
+  EPISODES.forEach((ep,i)=>{
+    const done=!!S.done[i];
+    const score=S.scores[i];
+    const c=EP_COLORS[i];
+    const div=document.createElement('div');
+    div.className='ep-card'+(done?' done':'');
+    div.onclick=()=>startEp(i);
+    div.innerHTML=`
+      <div class="ep-icon" style="background:${c}22;color:${c}">${EP_EMOJIS[i]}</div>
+      <div class="ep-meta">
+        <div class="ep-num" style="color:${c}">EPISODE ${i+1}</div>
+        <div class="ep-title" style="color:${done?'#fff':c}">${ep.title}</div>
+        <div class="ep-sub">${ep.sub}</div>
+        ${score!==undefined?`<div class="ep-score">✓ ${score}/3 CORRECT</div>`:''}
+      </div>
+      <div class="ep-badge">${done?'✅':'▶️'}</div>`;
+    list.appendChild(div);
+  });
+}
+
+// ── EPISODE ──
+function startEp(i){
+  S.epIdx=i;
+  S.cardIdx=0;
+  const ep=EPISODES[i];
+  document.getElementById('ep-topbar-title').textContent=`Ep ${i+1}: ${ep.title}`;
+  document.getElementById('ep-topbar-title').style.color=EP_COLORS[i];
+  buildPips(ep.cards.length);
+  renderCard();
+  go('s-ep');
+}
+
+function buildPips(n){
+  const row=document.getElementById('pip-row');
+  row.innerHTML='';
+  for(let i=0;i<n;i++){
+    const d=document.createElement('div');
+    d.className='pip';
+    d.id='pip-'+i;
+    row.appendChild(d);
+  }
+}
+
+function litPips(){
+  const ep=EPISODES[S.epIdx];
+  for(let i=0;i<ep.cards.length;i++){
+    const p=document.getElementById('pip-'+i);
+    if(p) p.className='pip'+(i<=S.cardIdx?' lit':'');
+  }
+}
+
+function renderCard(){
+  const ep=EPISODES[S.epIdx];
+  const c=ep.cards[S.cardIdx];
+  const color=EP_COLORS[S.epIdx];
+  document.getElementById('card-count').textContent=`${S.cardIdx+1} / ${ep.cards.length}`;
+  litPips();
+
+  let html=`<div class="card-anim">`;
+  if(c.badge) html+=`<div class="badge" style="background:${c.badgeColor}22;color:${c.badgeColor}">${c.badge}</div>`;
+  if(c.h) html+=`<div class="card-h" style="color:${color}">${c.h}</div>`;
+  if(c.body) html+=`<div class="card-p">${c.body}</div>`;
+  if(c.quote){
+    html+=`<div class="qblock">${c.quote}`;
+    if(c.quotesrc) html+=`<div class="qsrc">— ${c.quotesrc}</div>`;
+    html+=`</div>`;
+  }
+  if(c.after) html+=`<div class="card-p" style="margin-top:12px">${c.after}</div>`;
+  if(c.bullets){
+    html+=`<div class="bullets">`;
+    c.bullets.forEach(b=>{
+      html+=`<div class="bitem"><div class="bdot" style="background:${color}"></div><div class="btext"><strong>${b.label}</strong>${b.detail}</div></div>`;
+    });
+    html+=`</div>`;
+  }
+  if(c.callout) html+=`<div class="callout">${c.callout}</div>`;
+  html+=`</div>`;
+  document.getElementById('card-content').innerHTML=html;
+
+  // Nav buttons
+  const isLast=S.cardIdx===ep.cards.length-1;
+  const navRow=document.getElementById('nav-row');
+  navRow.innerHTML='';
+  if(S.cardIdx>0){
+    const back=document.createElement('button');
+    back.className='nxt-btn ghost';
+    back.textContent='←';
+    back.onclick=()=>{S.cardIdx--;renderCard();document.getElementById('card-scroll').scrollTo(0,0);};
+    navRow.appendChild(back);
+  }
+  const nxt=document.createElement('button');
+  nxt.className='nxt-btn';
+  nxt.style.background=`linear-gradient(135deg,${color},${color}bb)`;
+  nxt.textContent=isLast?'TAKE THE QUIZ ⚡':'NEXT →';
+  nxt.onclick=()=>{
+    if(isLast){startQuiz();}
+    else{S.cardIdx++;renderCard();document.getElementById('card-scroll').scrollTo(0,0);}
+  };
+  navRow.appendChild(nxt);
+}
+
+// ── QUIZ ──
+function startQuiz(){
+  S.qIdx=0;
+  S.qScore=0;
+  const ep=EPISODES[S.epIdx];
+  document.getElementById('quiz-eye').textContent=`⚡ EPISODE ${S.epIdx+1} CHALLENGE`;
+  document.getElementById('quiz-ttl').textContent=ep.title;
+  renderDots();
+  renderQuestion();
+  go('s-quiz');
+}
+
+function renderDots(){
+  const ep=EPISODES[S.epIdx];
+  const dots=document.getElementById('q-dots');
+  dots.innerHTML='';
+  ep.quiz.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='qdot'+(i===S.qIdx?' on':i<S.qIdx?' done':'');
+    dots.appendChild(d);
+  });
+}
+
+function renderQuestion(){
+  const ep=EPISODES[S.epIdx];
+  const q=ep.quiz[S.qIdx];
+  const color=EP_COLORS[S.epIdx];
+  document.getElementById('q-text').textContent=q.q;
+  const opts=document.getElementById('opts');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt';
+    btn.textContent=o;
+    btn.onclick=()=>selectAnswer(i,q,color);
+    opts.appendChild(btn);
+  });
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('feedback').textContent='';
+  document.getElementById('next-q-btn').className='next-q';
+  renderDots();
+}
+
+function selectAnswer(chosen,q,color){
+  const optBtns=document.querySelectorAll('.opt');
+  optBtns.forEach(b=>b.disabled=true);
+  const correct=chosen===q.ans;
+  optBtns[chosen].classList.add(correct?'correct':'wrong');
+  if(!correct) optBtns[q.ans].classList.add('correct');
+  const fb=document.getElementById('feedback');
+  fb.className='feedback show '+(correct?'ok':'no');
+  fb.textContent=(correct?'✅ Correct! ':'❌ Not quite. ')+q.exp;
+  document.getElementById('next-q-btn').className='next-q show';
+  if(correct){
+    S.qScore++;
+    S.xp+=20;
+    showXP('+20 XP');
+  }
+}
+
+function showXP(txt){
+  const p=document.createElement('div');
+  p.className='xp-pop';
+  p.textContent=txt;
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),1400);
+}
+
+function nextQuestion(){
+  const ep=EPISODES[S.epIdx];
+  S.qIdx++;
+  if(S.qIdx<ep.quiz.length){
+    renderQuestion();
+    document.getElementById('s-quiz').scrollTo(0,0);
+  } else {
+    S.done[S.epIdx]=true;
+    S.scores[S.epIdx]=S.qScore;
+    const allDone=Object.keys(S.done).length===EPISODES.length;
+    if(allDone){
+      document.getElementById('comp-xp').textContent=S.xp+' XP';
+      go('s-complete');
+    } else {
+      go('s-hub');
+    }
+  }
+}
+
+// ── CONFETTI ──
+function launchConfetti(){
+  const canvas=document.getElementById('confetti-canvas');
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+  const colors=['#ffd700','#00d4ff','#2ed573','#ff6b35','#a855f7','#ff4757','#ffffff'];
+  const pieces=[];
+  for(let i=0;i<140;i++){
+    pieces.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height-canvas.height,
+      r:Math.random()*7+3,
+      d:Math.random()*140+40,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      tilt:Math.random()*10-10,
+      tiltSpeed:Math.random()*.07+.05,
+      angle:0,
+      vy:Math.random()*3+2,
+      vx:(Math.random()-.5)*2
+    });
+  }
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      p.angle+=p.tiltSpeed;
+      p.y+=p.vy;
+      p.x+=p.vx;
+      p.tilt=Math.sin(p.angle)*12;
+      if(p.y>canvas.height+20) p.y=-20;
+      ctx.beginPath();
+      ctx.lineWidth=p.r;
+      ctx.strokeStyle=p.color;
+      ctx.moveTo(p.x+p.tilt+p.r/2,p.y);
+      ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/2);
+      ctx.stroke();
+    });
+    frame++;
+    if(frame<400) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  draw();
+}
+
+// ── INIT ──
+renderHub();
+</script>
+</body>
+</html>
